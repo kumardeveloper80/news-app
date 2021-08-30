@@ -1,0 +1,101 @@
+<div class="news_main_div">
+  <div class="row">
+    <div class="col-sm-5">
+        <input type="text" class="form-control" id="searchTitle"
+        placeholder="Filter by title" aria-describedby="searchTitle" [(ngModel)]="searchTitle"
+        [ngModelOptions]="{standalone: true}" > 
+    </div>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="searchTags"
+        placeholder="Filter by tags(ex. test,test1,test2 )" aria-describedby="searchTags" [(ngModel)]="searchTags"
+        [ngModelOptions]="{standalone: true}" > 
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-primary mb-4" type="button" (click)="applyFilter()"><i class="fa fa-paper-plane"></i>Apply Filter</button>
+      <button class="btn btn-primary mb-4 sendButton" type="button" (click)="resetSearchFilter()"><i class="fa fa-undo"></i>Reset Filter</button>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-3 custom_card" *ngFor="let news of newsData">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-10 col-md-10 col-lg-9">
+              {{news.title}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-3 d-flex">
+              <a href="#" class="btn" (click)="editData(news.id)"><i class="fa fa-pencil-square-o"></i> </a>
+              <a href="#" class="btn" (click)="deleteData(news.id)"><i class="fa fa-trash-o"></i> </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" (click)="getDetails(news.id)">
+          <h5 class="card-title">
+            <p>{{news.content}}</p>
+          </h5>
+          <p class="card-text"><span>Author</span> : {{news.authorName}}</p>
+          <p class="card-text"> <span>content</span> : {{news.content}}</p>
+          <p class="card-text"> <span>date</span> : {{news.date | date:'fullDate'}}</p>
+          <p class="card-text"><span>tags</span> : {{news.tags}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit form-->
+  <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModal">Open Modal</button>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add news</h5>
+          <button type="button" class="close" aria-label="Close" (click)="resetFilter()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="newsForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Title</label>
+              <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title"
+                aria-describedby="title">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Author name</label>
+              <input type="text" class="form-control" id="authorName" formControlName="authorName"
+                placeholder="Enter Author Name" aria-describedby="authorName">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Content</label>
+              <textarea class="form-control" aria-label="With textarea" formControlName="content"
+                placeholder="Enter content"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tags</label>
+              <input class="form-control" type="text" id="tag" #skillsSetRef
+                placeholder="Enter each tag and hit 'Enter' Key." [(ngModel)]="tag"
+                [ngModelOptions]="{standalone: true}" (keydown.enter)="onTagKeydown()">
+            </div>
+            <div class="row tags_div">
+              <div *ngFor="let tag of tags; let i = index" class="roundedcorner">
+                <div class="d-flex">
+                  {{tag}}
+                  <i class="fa fa-times-circle dropIcon" (click)="dropTag(i)"></i>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Date</label>
+              <input type="date" class="form-control" id="date" formControlName="date" placeholder="Enter date"
+                aria-describedby="date">
+            </div>
+            <button class="btn btn-primary mb-4" type="button" (click)="submit()">Submit</button>
+            <button type="button" id="closeModalButton" [hidden]="true" class="btn btn-secondary"
+              data-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

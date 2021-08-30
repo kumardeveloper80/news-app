@@ -1,0 +1,32 @@
+.news_main_div{
+    margin: 71px 76px !important;
+}
+
+.comment-box{
+    border: 1px solid black;
+    border-radius: 14px;
+    margin: 10px 0;
+    padding: 10px 13px;
+}
+
+.commentBox{
+    height: 393px;
+    overflow: auto;
+}
+ 
+.commentBox p{
+        margin-bottom: 0 !important;
+}
+
+.commentBoxInput {
+    min-height: 40px !important;
+    height: auto;    
+}
+
+.sendButton{
+    margin-left: 10px;
+}
+
+.backButton{
+    margin-top: 10px !important;
+}

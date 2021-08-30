@@ -1,0 +1,56 @@
+<div class="news_main_div">
+  <div class="container">
+    <div class="row">
+      <div class="card p-0">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-10 col-md-10 col-lg-9">
+              {{newsData.title}}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <p>{{newsData.content}}</p>
+          </h5>
+          <p class="card-text"><span>Author</span> : {{newsData.authorName}}</p>
+          <p class="card-text"> <span>content</span> : {{newsData.content}}</p>
+          <p class="card-text"> <span>date</span> : {{newsData.date}}</p>
+          <p class="card-text"><span>tags</span> : {{newsData.tags}}</p>
+        </div>
+        <div class="card-footer">
+          <div class="commentBox" *ngIf="newsComments && newsComments.length>0">
+            <div class="">
+              <div class="row comment-box" *ngFor="let comment of newsComments">
+                <div class="col-sm-6 p-2">
+                  <p><b>{{comment.authorName}}</b></p>
+                </div>
+                <div class="col-sm-6 p-1">
+                  <p class="float-right">{{comment.date | date:'fullDate'}}</p>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-11">
+                  <p style="margin-left: 10px;">{{comment.content}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <form [formGroup]="commentForm">
+              <div class="d-flex">
+                <textarea class="form-control commentBoxInput" aria-label="With textarea" formControlName="content"
+                  placeholder="Enter comment" rows="1"></textarea>
+                <button class="btn btn-primary mb-4 m-l-5 sendButton" type="button" (click)="submit()"><i class="fa fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="backButton">
+      <a href="/"><button class="btn btn-primary mb-4 m-b-3" type="button"><i class="fa fa-backward"></i> Load All News
+      </button></a>
+      </div>
+    </div>
+  </div>
+</div>
